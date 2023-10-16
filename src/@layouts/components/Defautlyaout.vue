@@ -2,9 +2,8 @@
 import Sidebar from '@layouts/components/sidebar/Sidebar.vue'
 import Header from '@layouts/components/header/Header.vue'
 import { useVIsibleStore } from '@/store/activateSide';
-import { usePaddingStore } from '@/store/changPadding';
+// import { usePaddingStore } from '@/store/changPadding';
 
-const isVisible = ref(false)
 // watch(
 //   () =>useVIsibleStore().visible,
 //   (value) => {

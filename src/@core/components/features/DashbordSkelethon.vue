@@ -54,7 +54,7 @@
 }
 
 .skeleton-chart-bar {
-  height: 200px; /* Ajustez la hauteur de la barre du graphique selon vos besoins */
+  height: 200px;
   background-color: #ccc;
   margin: 4px;
 }
