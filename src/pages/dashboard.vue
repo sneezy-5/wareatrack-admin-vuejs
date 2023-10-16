@@ -1,13 +1,19 @@
 <script lang="ts" setup>
 import AnalitycAward from '@/views/dashboard/AnalitycAward.vue'
 import AnalitycChartBar from '@/views/dashboard/AnalitycChartBar.vue'
+import DahboardSkelethon from '@/@core/components/features/DahboardSkelethon.vue'
 
+const loading = ref(false);
+
+setTimeout(()=>{
+  console.log('load data');
+}, 5000);
 </script>
 
 <template>
 
-
-<v-row class="contenair">
+<DahboardSkelethon v-if="loading"/>
+<v-row class="contenair" v-else>
   <v-col cols="12" md="3" class="col-custom">
     <AnalitycAward title="Propspect" value="126"/>
 

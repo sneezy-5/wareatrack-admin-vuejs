@@ -2,6 +2,8 @@
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import login from '@/assets/images/login.jpeg'
+import { accountService } from '@/_services';
+import router from '@/router';
 
 const screenWidth = ref(window.innerWidth);
 
@@ -30,6 +32,8 @@ const secondCardCols = computed(() => {
   }
 });
 
+const isLoading = ref(false)
+
 const schema = yup.object({
   email: yup.string().required().email(),
   password: yup.string().required().min(8),
@@ -37,19 +41,34 @@ const schema = yup.object({
 const form = reactive({
   email: '',
   password: '',
-  remember: false,
-  formErrors: {
-    email: false,
-    password: false,
-  },
+ // remember: false,
+  // formErrors: {
+  //   email: false,
+  //   password: false,
+  // },
 })
+const errors = ref('')
 
 
 const submit = () => {
-  form.formErrors.email = form.email === ''
-  form.formErrors.password = form.password === ''
+console.log(form)
+  isLoading.value = true
+    accountService.login(form)
+      .then((res: { data: { access: string; role: string;database:string  } }) => {
+        accountService.saveToken('access', res.data.access);
+        accountService.saveToken('role', res.data.role);
+        accountService.saveToken('database', res.data.database);
 
-
+        router.push('/dashboard');
+      })
+      .catch((error: { status: number }) => {
+        errors.value = '';
+        if (error.status === 403) {
+          console.error("Votre Email/mot de passe est incorrect");
+        }
+        isLoading.value = false;
+        errors.value = "Votre Email/mot de passe est incorrect";
+      });
 };
 
 
@@ -62,11 +81,22 @@ const submit = () => {
       <v-col :cols="firstCardCols" md="6" class=".center-col">
         <v-card   elevation="0" class="vcard">
           <Form @submit="submit" :validation-schema="schema" class="form-control">
-            <Field name="email"  class="form-input"/>
+            <Field name="email"  class="form-input" v-model="form.email"/>
             <ErrorMessage name="email" class="form-error" />
-            <Field name="password" type="password" class="form-input" />
-            <ErrorMessage name="password" class="form-error" />
-            <v-btn color="primary" type="submit">login</v-btn>
+            <Field name="password" type="password" class="form-input" v-model="form.password" />
+            <ErrorMessage name="password" class="form-error"  />
+            <VBtn
+
+                type="submit"
+                :loading="isLoading"
+                class="d-flex justify-center align-center"
+                color="primary"
+              >
+              <template #loader>
+                  <VProgressCircular indeterminate color="white" />
+                </template>
+                {{ isLoading ? '' : 'Login' }}
+              </VBtn>
           </Form>
         </v-card>
 

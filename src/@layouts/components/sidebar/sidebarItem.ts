@@ -16,12 +16,12 @@ const sidebarItem:sidebarIterface[] = [
     },
     {
       name:'abonnements',
-      path:'abonnements',
-      icon: 'mdi-home-outline',
+      path:'subscriptions',
+      icon: ' mdi-plus-network',
     },   {
-      name:'products',
-      path:'products',
-      icon: 'mdi-home-outline',
+      name:'users',
+      path:'users',
+      icon: 'mdi-account',
     }
 
   ]

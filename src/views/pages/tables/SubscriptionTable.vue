@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { prostpectService } from '@/_services';
+import { subscriptionService } from '@/_services';
 import TableSkelethon from '@/@core/components/features/TableSkelethon.vue'
 import DeletePopup from '@/components/popup/DeletePopup.vue'
-import CreatePopup from '@/components/popup/prostpects/form/CreatePopup.vue'
+import CreatePopup from '@/components/popup/subscription/form/CreatePopup.vue'
 import ToastMesssage from '@/@core/components/features/ToastMesssage.vue'
-import EditPopup from '@/components/popup/prostpects/form/EditPopup.vue';
 import { useActivatePopupStore } from '@/store/activatePopup';
 const toast = ref({
   show: false,
@@ -21,10 +20,7 @@ const showDialog = ref(false);
 const openCreateDialog = () => {
   useActivatePopupStore().changeOpenCreate(true)};
 
-const openEditDialog = (value:number) => {
-  deleteId.value = value;
-  useActivatePopupStore().changeOpenEdit(true)
-};
+
 
 //open delete dialog
 const openDialog = (id:number) => {
@@ -44,7 +40,7 @@ const getAll =()=>{
   loading.value = true;
   const offset = (page.value - 1) * limit;
   const filter =`?limit=${limit}&offset=${offset}`
-  prostpectService.getProstpects(filter)
+  subscriptionService.getSubscriptions(filter)
       .then((res: { data: { results: any; }; }) => {
         const data = res.data.results
 
@@ -77,18 +73,10 @@ watch(
     }
 )
 
-watch(
-     () =>  useActivatePopupStore().openEdit,
-     (value) =>{
 
-      if(value==false)
-        getAll();
 
-    }
-)
-
-const deleteProstpect = () => {
-  prostpectService.deleteProstpect(deleteId.value)
+const deleteSubscription = () => {
+  subscriptionService.deleteSubscription(deleteId.value)
       .then((res: { data: { results: any; }; }) => {
         getAll();
         toast.value = {
@@ -125,19 +113,13 @@ const numPages = computed(() => Math.ceil(desserts[0]?.count / 5));
     <thead>
       <tr>
         <th class="text-uppercase">
-          Uername
+          prostpect
         </th>
         <th class="text-uppercase text-center">
-          Database
+          expired_date
         </th>
         <th class="text-uppercase text-center">
-          Email
-        </th>
-        <th class="text-uppercase text-center">
-          Contact
-        </th>
-        <th class="text-uppercase text-center">
-         logo
+          subscription date
         </th>
         <th class="text-uppercase text-center">
          Action
@@ -151,25 +133,16 @@ const numPages = computed(() => Math.ceil(desserts[0]?.count / 5));
         :key="item.id"
       >
         <td>
-          {{ item.username }}
+          {{ item.prospect?.username  }} -  {{ item.prospect?.email  }}
         </td>
         <td class="text-center">
-          {{ item.database }}
+          {{ item.expired_date }}
         </td>
         <td class="text-center">
-          {{ item.email }}
+          {{ item.subscription_date }}
         </td>
-        <td class="text-center">
-          {{ item.contact }}
-        </td>
-        <td class="text-center">
-          {{ item.picture }}
-        </td>
-        <td class="text-center">
-          <button @click="openEditDialog(item.id)">
-            <VIcon icon="mdi-pencil-outline"></VIcon>
 
-        </button>
+        <td class="text-center">
 
           <button @click="openDialog(item.id)">
           <VIcon icon="mdi-trash-can-outline" style="color: red;"></VIcon>
@@ -192,7 +165,7 @@ const numPages = computed(() => Math.ceil(desserts[0]?.count / 5));
   <!-- show toast -->
   <ToastMesssage :toast="toast"/>
     <!-- popup de suppression -->
-    <DeletePopup :open="showDialog" :Ondelete="deleteProstpect" :OnCancel="closeDialog"></DeletePopup>
+    <DeletePopup :open="showDialog" :Ondelete="deleteSubscription" :OnCancel="closeDialog"></DeletePopup>
 
     <!-- popu de  creation des prostpects-->
     <CreatePopup  />

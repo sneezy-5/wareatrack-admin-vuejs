@@ -48,7 +48,7 @@ watch(
 
 <template>
   <div  v-if="lgAndUp" >
-    <v-navigation-drawer app permanent v-model="lgAndUp" class="custom"   :width='asidval' :rail="rail"   @click="rail = false" >
+    <v-navigation-drawer app permanent v-model="lgAndUp" class="custom"   :width='asidval' :rail="rail" :rail-width="90"   @click="rail = false" >
       <v-col  style="display: flex; justify-content: space-between; background: rgb(2, 101, 199); color: #fff; border-radius: 30px;">
           <p style="display: flex; align-items: center; justify-content: center;">
             <span>Admin dashbord</span>
@@ -60,13 +60,7 @@ watch(
             ></v-btn>
 
 
-        <!-- <IconBtn
-          class="ms-n3"
-          style="cursor: pointer;"
-          @click="toggleNavCollapse"
-        >
-          <VIcon icon="mdi-menu" />
-        </IconBtn> -->
+
 
       </v-col>
 

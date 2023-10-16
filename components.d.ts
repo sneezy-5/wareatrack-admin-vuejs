@@ -8,7 +8,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     CardStat: typeof import('./src/@core/components/cards/CardStat.vue')['default']
+    CreatePopup: typeof import('./src/@core/components/features/CreatePopup.vue')['default']
+    DashbordSkelethon: typeof import('./src/@core/components/features/DashbordSkelethon.vue')['default']
+    Popup: typeof import('./src/@core/components/features/Popup.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TableSkelethon: typeof import('./src/@core/components/features/TableSkelethon.vue')['default']
+    ToastMesssage: typeof import('./src/@core/components/features/ToastMesssage.vue')['default']
   }
 }

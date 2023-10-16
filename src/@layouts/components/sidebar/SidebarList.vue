@@ -42,15 +42,13 @@ watch(
 
 
 .list-item{
-  // display: flex !important;
-  // flex-direction: row !important;
-  // align-items: center !important;
-  // justify-content: center !important;
-  border-radius: 30px;
+
+  //border-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
   height: 8px;
   color: #ffffff;
-  margin-left: 10px;
-
+  // margin-left: 10px;
 }
 .v-list-item--active {
      background-color: rgb(99, 78, 221);
