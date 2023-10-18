@@ -170,7 +170,6 @@ const numPages = computed(() => Math.ceil(desserts[0]?.count / 5));
     <!-- popu de  creation des prostpects-->
     <CreatePopup  />
 
-    <EditPopup :id="deleteId"/>
 </template>
 
 <style scoped>

@@ -4,8 +4,8 @@ import { accountService } from '@/_services'
 import router from '@/router'
 
 const Axios = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/v0'
-   //baseURL:  'https://smik-services.com/api/v0/'
+    //baseURL: 'http://127.0.0.1:8000/api/v0'
+   baseURL:  'https://smik-services.com/api/v0/'
 })
 
 
@@ -13,7 +13,7 @@ const Axios = axios.create({
 /**
  * Interceptor pour injection token
  */
-Axios.interceptors.request.use((request: { headers: { [x: string]: string | null; Authorization: string } }) => {
+Axios.interceptors.request.use((request: any) => {
 
     // Si connecté on ajoute le token dans l'entête
     if(accountService.isLogged()){

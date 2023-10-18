@@ -32,10 +32,10 @@ const props = withDefaults(defineProps<ToastPropType>(), {
       :color="props.toast.color"
       top='top' >
     {{ props.toast.text }}
-    <template #action="{ attrs }">
+    <!-- <template #action="{ attrs }">
       <VBtn text v-bind="attrs" @click="props.toast.show = false">
         <VIcon>mdi-close</VIcon>
       </VBtn>
-    </template>
+    </template> -->
   </VSnackbar>
 </template>
